@@ -506,7 +506,8 @@ static dmExtension::Result OnUpdate(dmExtension::Params* params)
             r = WSL_WantsExit(conn->m_Ctx);
             if (0 != r)
             {
-                CLOSE_CONN("Websocket received close event for %s", conn->m_Url.m_Hostname);
+                CloseConnection(conn);
+                HandleCallback(conn, EVENT_DISCONNECTED);
                 continue;
             }
 #else
